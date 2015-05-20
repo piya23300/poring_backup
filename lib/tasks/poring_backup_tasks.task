@@ -1,0 +1,14 @@
+namespace :poring_backup do
+  
+  desc "install poring backup"
+  task :install => :environment do
+    system 'rails g poring_backup:install'
+    p "run backup `rake poring_backup:perform`"
+  end
+
+  desc "run poring backup"
+  task :perform => :environment do
+    PoringBackup.model.perform!
+  end
+
+end
