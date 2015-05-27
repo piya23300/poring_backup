@@ -13,8 +13,8 @@ module PoringBackup
         end
       }
       context "block" do
-        it 'sets database' do
-          expect(pg.instance_variable_get(:@database)).to eq 'new_database_name' 
+        it 'sets db_name' do
+          expect(pg.instance_variable_get(:@db_name)).to eq 'new_database_name' 
         end
         it 'sets host' do
           expect(pg.instance_variable_get(:@host)).to eq 'new_host_name' 

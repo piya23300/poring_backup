@@ -15,19 +15,19 @@ module PoringBackup
         expect(db.path).to eq 'db_backups' 
       end
       it "backup file name" do
-        expect(db.file).to eq 'db_backup.psql' 
+        expect(db.file).to eq 'db_backup.sql' 
       end
       it "backup file dir" do
         expect(db.file_dir).to eq 'db_backups/date_time_dir' 
       end
       it "backup file path" do
-        expect(db.file_path).to eq 'db_backups/date_time_dir/db_backup.psql' 
+        expect(db.file_path).to eq 'db_backups/date_time_dir/db_backup.sql' 
       end
       it "backup tmp dir" do
         expect(db.tmp_dir).to eq 'tmp/poring_backups/db_backups/date_time_dir' 
       end
       it "backup tmp file path" do
-        expect(db.tmp_file_path).to eq 'tmp/poring_backups/db_backups/date_time_dir/db_backup.psql' 
+        expect(db.tmp_file_path).to eq 'tmp/poring_backups/db_backups/date_time_dir/db_backup.sql' 
       end
     end
 

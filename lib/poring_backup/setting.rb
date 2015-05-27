@@ -4,12 +4,14 @@ module PoringBackup
   class Setting
     include Settings::Callback
 
+    attr_reader :app_name
     attr_reader :before_actions, :after_actions
     attr_reader :dir, :tmp_dir
-    attr_reader :databases, :storages
+    attr_reader :databases, :storages, :notifiers
     attr_reader :created_at
     
-    def initialize &block
+    def initialize name=nil, &block
+      @app_name = name
       @created_at = Time.now.strftime("%Y.%m.%d.%H.%M.%S")
       @before_actions = []
       @after_actions = []
@@ -17,6 +19,7 @@ module PoringBackup
       @tmp_dir = "tmp/poring_backups"
       @databases = []
       @storages = []
+      @notifiers = []
       instance_eval(&block) if block_given?
     end
 
@@ -28,6 +31,10 @@ module PoringBackup
       @storages << class_from_scope(Storages, model).new(self, &block)
     end
 
+    def notifier model, &block
+      @notifiers << class_from_scope(Notifiers, model).new(self, &block)
+    end
+
     def perform!
       PoringBackup.logger.info "PoringBackup Start..."
       before_backup
@@ -35,6 +42,7 @@ module PoringBackup
       store!
       clear_tmp!
       after_backup
+      notify!
       PoringBackup.logger.info "PoringBackup Done"
     end
 
@@ -54,8 +62,13 @@ module PoringBackup
       end
 
       def store!
-        PoringBackup.logger.info "----------- Store ---------"
+        PoringBackup.logger.info "---------- Store ----------"
         storages.each(&:upload)
+      end
+
+      def notify!
+        PoringBackup.logger.info "--------- Notifier --------"
+        notifiers.each(&:notify!)
       end
 
      

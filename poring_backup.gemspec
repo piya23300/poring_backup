@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency "pg"
   s.add_dependency "aws-sdk", '>= 2'
   s.add_dependency "logging", '>= 2.0.0'
+  s.add_dependency "excon"#, '>= 2'
 end

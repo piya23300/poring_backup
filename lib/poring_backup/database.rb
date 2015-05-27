@@ -5,12 +5,14 @@ module PoringBackup
     attr_reader :file, :tmp_file_path, :file_path
     attr_reader :path, :tmp_dir, :file_dir
     attr_reader :created_at
+    attr_reader :db_name
+    attr_reader :notify_message
 
     def initialize setting, &block
       @created_at = setting.created_at
       @setting = setting
       @path ||= 'db_backups'
-      @file ||= 'db_backup.psql'
+      @file ||= 'db_backup.sql'
       
       gen_file_dir
       gen_file_path

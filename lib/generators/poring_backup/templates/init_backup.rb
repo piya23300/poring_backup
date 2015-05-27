@@ -1,7 +1,7 @@
 
 # run backup `rake poring_backup:perform`
 
-PoringBackup.config do
+PoringBackup.config('your service name') do
 
   # before do |logger|
   #   #do somethings before backup
@@ -23,6 +23,12 @@ PoringBackup.config do
   #   bucket 'bucket_name'
   #   region 'region'
   #   path 'your/path'
+  # end
+
+  # notifier :Slack do
+  #   webhook "URL"
+  #   channel "#channel"
+  #   only_env [:development, :production]
   # end
 
 end
