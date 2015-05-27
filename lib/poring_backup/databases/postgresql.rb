@@ -3,14 +3,14 @@ module PoringBackup
     class PostgreSQL < Database
 
       def initialize setting, &block
-        @database = nil
+        @db_name = nil
         @host = 'localhost'
         @port = nil
         @username = nil
         @password = nil
 
         instance_eval(&block) if block_given?
-        @file = "#{@database}.pgsql"
+        @file = "#{db_name}.pgsql"
         super
       end
 
@@ -35,7 +35,7 @@ module PoringBackup
       end
 
       def database name
-        @database = name
+        @db_name = name
       end
 
       def host name
@@ -55,7 +55,7 @@ module PoringBackup
       end
 
       def db_dump
-        "pg_dump #{connection_options} #{general_options} #{@database}"
+        "pg_dump #{connection_options} #{general_options} #{db_name}"
       end
 
       private

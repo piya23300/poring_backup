@@ -6,7 +6,7 @@ module PoringBackup
 
     attr_reader :before_actions, :after_actions
     attr_reader :dir, :tmp_dir
-    attr_reader :databases, :storages
+    attr_reader :databases, :storages, :notifiers
     attr_reader :created_at
     
     def initialize &block
@@ -17,6 +17,7 @@ module PoringBackup
       @tmp_dir = "tmp/poring_backups"
       @databases = []
       @storages = []
+      @notifiers = []
       instance_eval(&block) if block_given?
     end
 
@@ -26,6 +27,10 @@ module PoringBackup
 
     def store_with model, &block
       @storages << class_from_scope(Storages, model).new(self, &block)
+    end
+
+    def notifier model, &block
+      @notifiers << class_from_scope(Notifiers, model).new(self, &block)
     end
 
     def perform!

@@ -5,6 +5,7 @@ module PoringBackup
     attr_reader :file, :tmp_file_path, :file_path
     attr_reader :path, :tmp_dir, :file_dir
     attr_reader :created_at
+    attr_reader :db_name
 
     def initialize setting, &block
       @created_at = setting.created_at

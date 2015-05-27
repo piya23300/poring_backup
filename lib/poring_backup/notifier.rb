@@ -1,12 +1,15 @@
 module PoringBackup
-  class Storage
+  class Notifier
 
     attr_reader :setting
-    attr_reader :notify_text
 
     def initialize setting, &block
       @setting = setting
     end
 
+    def notify!
+      
+    end
+
   end
-end
+end 

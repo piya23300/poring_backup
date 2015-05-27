@@ -52,6 +52,10 @@ module PoringBackup
           PoringBackup.logger.info "#{' '*3}finished"
         end
 
+        def notify_text
+          @notify_text ||= "bucket: #{@bucket}, path: #{@path}"
+        end
+
         private
           def aws_resource
             @aws_resource ||= Aws::S3::Resource.new(client: aws_client)
