@@ -1,4 +1,4 @@
-##v0.0.5##
+##v0.0.5## (2015-05-27)
 
 - database supports PostgreSQL
 - storage supports S3
