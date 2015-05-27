@@ -29,6 +29,7 @@ module PoringBackup
       end
 
       def notify!
+        super
         return on_disabled unless on_envs.include?(Rails.env) or on_envs.empty?
         options = {
           :headers  => { 'Content-Type' => 'application/x-www-form-urlencoded' },
@@ -36,7 +37,13 @@ module PoringBackup
         }
         # options.merge!(:expects => 200) # raise error if unsuccessful
         response = Excon.post(webhook_uri, options)
-        (response.data[:body] == 'ok') ? on_success : on_failure(response.data[:body])
+        if (response.data[:body] == 'ok')
+          PoringBackup.logger.info "Slack notify : #{on_success}"
+          on_success
+        else
+          PoringBackup.logger.warn "Slack notify : #{on_failure(response.data[:body])}"
+          on_failure(response.data[:body])
+        end
       end
 
       def on_envs

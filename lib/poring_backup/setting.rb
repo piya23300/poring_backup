@@ -40,6 +40,7 @@ module PoringBackup
       store!
       clear_tmp!
       after_backup
+      notify!
       PoringBackup.logger.info "PoringBackup Done"
     end
 
@@ -61,6 +62,11 @@ module PoringBackup
       def store!
         PoringBackup.logger.info "----------- Store ---------"
         storages.each(&:upload)
+      end
+
+      def notify!
+        PoringBackup.logger.info "----------- Notifier ---------"
+        notifiers.each(&:notify!)
       end
 
      

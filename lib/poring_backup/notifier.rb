@@ -8,7 +8,6 @@ module PoringBackup
     end
 
     def notify!
-      
     end
 
     private
