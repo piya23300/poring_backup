@@ -34,6 +34,17 @@ module PoringBackup
         expect(setting.storages.size).to eq 1  
         expect(setting.storages.first).to be_a(Storages::S3)  
     end
+    it "generate notifier object" do
+        setting = PoringBackup::Setting.new do
+            notifier :Slack do
+              webhook 'https://slack.webhook.uri'
+              channel '#channel_name'
+              only_env [:development, :production]
+            end
+          end
+        expect(setting.notifiers.size).to eq 1  
+        expect(setting.notifiers.first).to be_a(Notifiers::Slack)  
+    end
     it "#clear_tmp! will delete tmp directory" do
       setting = PoringBackup::Setting.new
       FileUtils.mkdir_p(setting.tmp_dir)

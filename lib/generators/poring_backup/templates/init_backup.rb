@@ -26,8 +26,8 @@ PoringBackup.config do
   # end
 
   # notifier :Slack do
-  #   channel "#channel"
   #   webhook "URL"
+  #   channel "#channel"
   #   only_env [:development, :production]
   # end
 

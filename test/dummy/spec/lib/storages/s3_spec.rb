@@ -3,7 +3,7 @@ require "rails_helper"
 
 module PoringBackup
   module Storages
-    describe S3, focus: true do
+    describe S3 do
       let(:aws) { 
         @aws = S3.new(Setting.new) do
           access_key_id 'new_access_key_id'

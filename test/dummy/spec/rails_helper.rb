@@ -5,6 +5,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'fakefs/spec_helpers'
+require 'excon'
 # require 'vcr'
 # require 'aws-sdk'
 
@@ -37,6 +38,12 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   
+  config.before(:all) do
+    Excon.defaults[:mock] = true
+  end
+  config.after(:each) do
+    Excon.stubs.clear
+  end
   
   # config.around(:each) do |example|
   #   VCR.use_cassette(example.metadata[:full_description]) do

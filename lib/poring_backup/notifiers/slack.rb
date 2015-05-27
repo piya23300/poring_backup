@@ -2,6 +2,9 @@ module PoringBackup
   module Notifiers
     class Slack < Notifier
 
+      attr_reader :webhook_uri, :channel_name
+      attr_reader :on_envs
+
       def initialize setting, &block
         super
         instance_eval(&block) if block_given?
@@ -14,45 +17,41 @@ module PoringBackup
       # end
 
       def webhook url
-        @webhook = url
+        @webhook_uri = url
       end
 
       def channel name
-        @channel = name
+        @channel_name = name
       end
 
       def only_env envs=[]
-        @envs = envs.map(&:to_s)
+        @on_envs = envs.map(&:to_s)
       end
 
       def notify!
-        return unless envs.include?(Rails.env) or envs.empty?
-
+        return on_disabled unless on_envs.include?(Rails.env) or on_envs.empty?
         options = {
           :headers  => { 'Content-Type' => 'application/x-www-form-urlencoded' },
           :body     => URI.encode_www_form(:payload => JSON.dump(data))
         }
-                # options.merge!(:expects => 200) # raise error if unsuccessful
-        Excon.post(uri, options)
+        # options.merge!(:expects => 200) # raise error if unsuccessful
+        response = Excon.post(webhook_uri, options)
+        (response.data[:body] == 'ok') ? on_success : on_failure(response.data[:body])
+      end
+
+      def on_envs
+        @on_envs ||= []
       end
 
       private
-        def envs
-          @envs ||= []
-        end
-
-        def uri
-          @uri ||= @webhook  
-        end
-
         def data
           @data = {
-            :channel  => @channel,
+            :channel  => channel_name,
             :username => 'Poring Backup',
             :icon_emoji => ":ghost:",
             :attachments => [
               {
-                :fallback   => "New ticket from Andrea Lee - Ticket #1943: Can't rest my password - https://groove.hq/path/to/ticket/1943",
+                :fallback   => "more information at <https://github.com/piya23300/poring_backup|poring_backup gem>",
                 :pretext    => "backup at #{setting.created_at}",
                 # :title      => "Ticket #1943: Can't reset my password",
                 # :title_link => "https://groove.hq/path/to/ticket/1943",
@@ -70,13 +69,13 @@ module PoringBackup
                     :short => true
                   },
                   {
-                    :title => "Storages",
-                    :value => storages_list,
+                    :title => "Databases",
+                    :value => databases_list,
                     :short => false
                   },
                   {
-                    :title => "Databases",
-                    :value => databases_list,
+                    :title => "Storages",
+                    :value => storages_list,
                     :short => false
                   }
                 ]
@@ -92,8 +91,6 @@ module PoringBackup
         def databases_list
           setting.databases.map { |db| "[#{db.class.name.demodulize}] #{db.db_name}" }.join("\n")
         end
-
-      
 
     end
   end
