@@ -12,7 +12,7 @@ module PoringBackup
       @created_at = setting.created_at
       @setting = setting
       @path ||= 'db_backups'
-      @file ||= 'db_backup.psql'
+      @file ||= 'db_backup.sql'
       
       gen_file_dir
       gen_file_path
