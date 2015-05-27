@@ -115,7 +115,7 @@ module PoringBackup
                 },
                 {
                   :title=>"Notifier", 
-                  :value=>"[Slack] Sender", 
+                  :value=>"[Slack] #channel_name", 
                   :short=>false
                 }
               ]

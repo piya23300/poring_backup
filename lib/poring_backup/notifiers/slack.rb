@@ -37,17 +37,21 @@ module PoringBackup
         }
         # options.merge!(:expects => 200) # raise error if unsuccessful
         response = Excon.post(webhook_uri, options)
-        @notify_message = if (response.data[:body] == 'ok')
-                    PoringBackup.logger.info "Slack notify : #{on_success}"
-                    on_success
-                  else
-                    PoringBackup.logger.warn "Slack notify : #{on_failure(response.data[:body])}"
-                    on_failure(response.data[:body])
-                  end
+        if (response.data[:body] == 'ok')
+          PoringBackup.logger.info "Slack notify : #{on_success}"
+          on_success
+        else
+          PoringBackup.logger.warn "Slack notify : #{on_failure(response.data[:body])}"
+          on_failure(response.data[:body])
+        end
       end
 
       def on_envs
         @on_envs ||= []
+      end
+
+      def notify_message
+        @notify_message ||= channel_name
       end
 
       private

@@ -11,10 +11,6 @@ module PoringBackup
     def notify!
     end
 
-    def notify_message
-      @notify_message ||= :Sender
-    end
-
     private
       def on_disabled
         :disabled
