@@ -4,11 +4,15 @@ module PoringBackup
   describe Setting do
     it "initialize" do
       setting = PoringBackup::Setting.new
+      expect(setting.app_name).to eq nil
       expect(setting.tmp_dir).to eq 'tmp/poring_backups'
       expect(setting.dir).to eq 'poring_backups'
       expect(setting.databases).to eq []
       expect(setting.storages).to eq []
       expect(setting.created_at).not_to eq nil
+
+      setting = PoringBackup::Setting.new('MyBrandName')
+      expect(setting.app_name).to eq 'MyBrandName'
     end
     it "generate database object" do
         setting = PoringBackup::Setting.new do

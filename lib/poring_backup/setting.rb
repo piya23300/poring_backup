@@ -4,12 +4,14 @@ module PoringBackup
   class Setting
     include Settings::Callback
 
+    attr_reader :app_name
     attr_reader :before_actions, :after_actions
     attr_reader :dir, :tmp_dir
     attr_reader :databases, :storages, :notifiers
     attr_reader :created_at
     
-    def initialize &block
+    def initialize name=nil, &block
+      @app_name = name
       @created_at = Time.now.strftime("%Y.%m.%d.%H.%M.%S")
       @before_actions = []
       @after_actions = []

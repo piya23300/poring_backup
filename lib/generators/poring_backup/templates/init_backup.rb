@@ -1,7 +1,7 @@
 
 # run backup `rake poring_backup:perform`
 
-PoringBackup.config do
+PoringBackup.config('your service name') do
 
   # before do |logger|
   #   #do somethings before backup

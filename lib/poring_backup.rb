@@ -21,8 +21,8 @@ require "poring_backup/railtie" if defined?(Rails)
 module PoringBackup
   class << self
     attr_reader :model
-    def config &block
-      @model = Setting.new(&block)
+    def config app_name=nil, &block
+      @model = Setting.new(app_name, &block)
     end
   end
 end

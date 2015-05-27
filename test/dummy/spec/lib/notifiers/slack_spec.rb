@@ -5,7 +5,7 @@ module PoringBackup
   module Notifiers
     describe Slack do
       let(:setting) {
-        PoringBackup.config do
+        PoringBackup.config('My Brand') do
 
           # before do |logger|
           #   #do somethings before backup
@@ -90,6 +90,7 @@ module PoringBackup
             {
               :fallback=>"more information at <https://github.com/piya23300/poring_backup|poring_backup gem>", 
               :pretext=>"backup at #{setting.created_at}", 
+              :title=> "My Brand",
               :color=>"#7CD197", 
               :fields=>[
                 {

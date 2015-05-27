@@ -60,7 +60,7 @@ module PoringBackup
               {
                 :fallback   => "more information at <https://github.com/piya23300/poring_backup|poring_backup gem>",
                 :pretext    => "backup at #{setting.created_at}",
-                # :title      => "Ticket #1943: Can't reset my password",
+                :title      => "#{setting.app_name}",
                 # :title_link => "https://groove.hq/path/to/ticket/1943",
                 # :text       => "Help! I tried to reset my password but nothing happened!",
                 :color      => "#7CD197",
