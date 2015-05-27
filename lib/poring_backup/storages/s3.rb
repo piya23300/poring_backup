@@ -52,8 +52,8 @@ module PoringBackup
           PoringBackup.logger.info "#{' '*3}finished"
         end
 
-        def notify_text
-          @notify_text ||= "bucket: #{@bucket}, path: #{@path}"
+        def notify_message
+          @notify_message ||= "bucket: #{@bucket}, path: #{@path}"
         end
 
         private

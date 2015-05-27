@@ -58,6 +58,10 @@ module PoringBackup
         "pg_dump #{connection_options} #{general_options} #{db_name}"
       end
 
+      def notify_message
+        @notify_message ||= db_name
+      end
+
       private
         def connection_options
           options = ''

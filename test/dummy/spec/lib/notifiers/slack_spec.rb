@@ -111,6 +111,11 @@ module PoringBackup
                   :title=>"Storages", 
                   :value=>"[S3] bucket: bucket_name, path: your/path", 
                   :short=>false
+                },
+                {
+                  :title=>"Notifier", 
+                  :value=>"[Slack] Sender", 
+                  :short=>false
                 }
               ]
             }

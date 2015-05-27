@@ -60,12 +60,12 @@ module PoringBackup
       end
 
       def store!
-        PoringBackup.logger.info "----------- Store ---------"
+        PoringBackup.logger.info "---------- Store ----------"
         storages.each(&:upload)
       end
 
       def notify!
-        PoringBackup.logger.info "----------- Notifier ---------"
+        PoringBackup.logger.info "--------- Notifier --------"
         notifiers.each(&:notify!)
       end
 
