@@ -50,11 +50,13 @@ module PoringBackup
         @username = name
       end
 
-      def password password
+      def password password=nil
         @password = password
       end
 
       def db_dump
+        "sudo " +
+        "#{password_option}" +
         "pg_dump #{connection_options} #{general_options} #{db_name}"
       end
 
@@ -68,9 +70,11 @@ module PoringBackup
           options << "--host=#{@host || 'localhost'}"
           options << " --port=#{@port}" if @port
           options << " --username=#{@username}" if @username
-          # options << " --no-password"
-          # options << " --password"
           options
+        end
+
+        def password_option
+          "PGPASSWORD=#{ Shellwords.escape(@password) } " if @password
         end
 
         def general_options

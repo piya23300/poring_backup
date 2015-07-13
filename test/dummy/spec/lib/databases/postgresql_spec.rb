@@ -33,7 +33,9 @@ module PoringBackup
       context "#db_dump gets command for db dump" do
         it "full command" do
           dump_cmd = pg.db_dump
-          expect_cmd = 'pg_dump'
+          expect_cmd = 'sudo'
+          expect_cmd << ' PGPASSWORD=new_password_name'
+          expect_cmd << ' pg_dump'
           expect_cmd << " --host=new_host_name"
           expect_cmd << " --port=new_port_name"
           expect_cmd << " --username=new_username_name"
@@ -57,6 +59,11 @@ module PoringBackup
             pg.username(nil)
             dump_cmd = pg.db_dump
             expect(dump_cmd).not_to match /--username/
+          end
+          it "password" do
+            pg.password(nil)
+            dump_cmd = pg.db_dump
+            expect(dump_cmd).not_to match /PGPASSWORD=/
           end
         end
       end
