@@ -1,3 +1,7 @@
+##v0.0.6## (2015-07-13)
+
+- [FIX] PostgrestSQL dump db with db's password
+
 ##v0.0.5## (2015-05-27)
 
 - database supports PostgreSQL
