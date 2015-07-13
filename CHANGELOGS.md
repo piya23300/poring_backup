@@ -1,3 +1,7 @@
+##v0.0.7## (2015-07-13)
+
+- [FIX] removed sudo from command excute
+
 ##v0.0.6## (2015-07-13)
 
 - [FIX] PostgrestSQL dump db with db's password

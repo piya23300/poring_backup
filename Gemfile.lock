@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    poring_backup (0.0.6)
+    poring_backup (0.0.7)
       aws-sdk (>= 2)
       excon
       logging (>= 2.0.0)

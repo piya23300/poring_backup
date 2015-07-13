@@ -55,7 +55,6 @@ module PoringBackup
       end
 
       def db_dump
-        "sudo " +
         "#{password_option}" +
         "pg_dump #{connection_options} #{general_options} #{db_name}"
       end
